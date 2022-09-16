@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "ba289fd0-f846-418a-b4d9-b05a6d11c051",
+		"name": "AerolineaAeropuerto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23282718"
+	},
+	"item": [
+		{
+			"name": "Crear una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"aerolinea_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"MuiscaAirlines\",\r\n    \"descripcion\": \"La mejor aerolinea del país.\",\r\n    \"fechaFundacion\": \"2018-03-29\",\r\n    \"paginaWeb\": \"www.muiscaairlines.co\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/aerolinea/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear el aeropuerto 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"aeropuerto1_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Aeropuerto El Dorado\",\r\n    \"codigo\": \"DOR\",\r\n    \"pais\": \"Colombia\",\r\n    \"ciudad\": \"Bogota\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/aeropuerto/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aeropuerto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear el aeropuerto 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"aeropuerto2_id\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Aeropuerto Ernesto Cortissoz\",\r\n    \"codigo\": \"BAQ\",\r\n    \"pais\": \"Colombia\",\r\n    \"ciudad\": \"Barranquilla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/aeropuerto/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aeropuerto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un aeropuerto a una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/{{aeropuerto1_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"{{aeropuerto1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un aeropuerto que no existe a una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los  aeropuertos de una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un aeropuerto de una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/{{aeropuerto1_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"{{aeropuerto1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un aeropuerto que no esta asociado a una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/{{aeropuerto2_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"{{aeropuerto2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar aeropuertos de una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\":\"{{aeropuerto2_id}}\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar con aeropuertos inexistentes de una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\":\"00000000-0000-0000-0000-000000000000\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un aeropuerto de una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/{{aeropuerto2_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"{{aeropuerto2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un aeropuerto no asociado a una aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}/aeropuertos/{{aeropuerto1_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}",
+						"aeropuertos",
+						"{{aeropuerto1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el aeropuerto 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aeropuerto/{{aeropuerto1_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aeropuerto",
+						"{{aeropuerto1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar el aeropuerto 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aeropuerto/{{aeropuerto2_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aeropuerto",
+						"{{aeropuerto2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar la aerolinea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/aerolinea/{{aerolinea_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"aerolinea",
+						"{{aerolinea_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

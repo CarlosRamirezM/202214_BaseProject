@@ -17,15 +17,15 @@ export class AerolineaService {
       }
     
       async findOne(id: string): Promise<AerolineaEntity> {
-        const movement = await this.aerolineaRepository.findOne({where: {id}, relations: ["aeropuertos"] });
-        if (!movement)
+        const aerolinea = await this.aerolineaRepository.findOne({where: {id}, relations: ["aeropuertos"] });
+        if (!aerolinea)
           throw new BusinessLogicException("No se encontró el aereolinea con el id dado", BusinessError.NOT_FOUND)
         else
-          return movement;
+          return aerolinea;
       }
     
       async create(aerolineaEntity: AerolineaEntity): Promise<AerolineaEntity> {
-        if (aerolineaEntity.fechaFundacion > (new Date()))
+        if (new Date(aerolineaEntity.fechaFundacion) > (new Date()))
           throw new BusinessLogicException("La fecha de fundacion de la aerolinea debe ser en el pasado.", BusinessError.PRECONDITION_FAILED)
         return await this.aerolineaRepository.save(aerolineaEntity);
       }
@@ -34,17 +34,17 @@ export class AerolineaService {
         const aerolinea = await this.aerolineaRepository.findOne({where: {id}});
         if (!aerolinea)
           throw new BusinessLogicException("No se encontró el aereolinea con el id dado", BusinessError.NOT_FOUND)
-        if (aerolineaEntity.fechaFundacion > (new Date()))
+        if (new Date(aerolineaEntity.fechaFundacion) > (new Date()))
           throw new BusinessLogicException("La fecha de fundacion de la aerolinea debe ser en el pasado.", BusinessError.PRECONDITION_FAILED)
           
         return await this.aerolineaRepository.save({...aerolinea, ...aerolineaEntity});
       }
     
       async delete(id: string) {
-        const movement = await this.aerolineaRepository.findOne({where: {id}});
-        if (!movement)
+        const aerolinea = await this.aerolineaRepository.findOne({where: {id}});
+        if (!aerolinea)
           throw new BusinessLogicException("No se encontró el aereolinea con el id dado", BusinessError.NOT_FOUND)
         else
-          return await this.aerolineaRepository.remove(movement);
+          return await this.aerolineaRepository.remove(aerolinea);
       }
 }

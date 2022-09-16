@@ -17,11 +17,11 @@ export class AeropuertoService {
       }
     
       async findOne(id: string): Promise<AeropuertoEntity> {
-        const movement = await this.aeropuertoRepository.findOne({where: {id}, relations: ["aerolineas"] });
-        if (!movement)
+        const aeropuerto = await this.aeropuertoRepository.findOne({where: {id}, relations: ["aerolineas"] });
+        if (!aeropuerto)
           throw new BusinessLogicException("No se encontró el aereopuerto con el id dado", BusinessError.NOT_FOUND)
         else
-          return movement;
+          return aeropuerto;
       }
     
       async create(aeropuertoEntity: AeropuertoEntity): Promise<AeropuertoEntity> {
@@ -41,10 +41,10 @@ export class AeropuertoService {
       }
     
       async delete(id: string) {
-        const movement = await this.aeropuertoRepository.findOne({where: {id}});
-        if (!movement)
+        const aeropuerto = await this.aeropuertoRepository.findOne({where: {id}});
+        if (!aeropuerto)
           throw new BusinessLogicException("No se encontró el aereopuerto con el id dado", BusinessError.NOT_FOUND)
         else
-          return await this.aeropuertoRepository.remove(movement);
+          return await this.aeropuertoRepository.remove(aeropuerto);
       }
 }
